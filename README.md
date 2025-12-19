@@ -5,10 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>تقرير تربوي رسمي</title>
 
-<!-- خط كوفي أنيق -->
-<link href="https://fonts.googleapis.com/css2?family=Kufam:wght@400;600;700&display=swap" rel="stylesheet">
-
 <style>
+/* ===== تضمين الخط الكوفي محليًا ===== */
+@font-face {
+    font-family: 'KufamLocal';
+    src: url('static/Kufam-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'KufamLocal';
+    src: url('static/Kufam-Bold.ttf') format('truetype');
+    font-weight: 700;
+}
+
 /* ===== إعدادات الطباعة A4 ===== */
 @page {
     size: A4;
@@ -17,14 +26,14 @@
 
 /* ===== عام ===== */
 body {
-    font-family: 'Kufam', sans-serif;
+    font-family: 'KufamLocal', sans-serif;
     margin: 0;
     background: #eceff1;
     direction: rtl;
     color: #1f1f1f;
 }
 
-/* ===== حاوية عامة ===== */
+/* ===== الحاوية ===== */
 .wrapper {
     max-width: 900px;
     margin: auto;
@@ -42,13 +51,12 @@ body {
 .form h2 {
     text-align: center;
     color: #0b3c5d;
-    margin-bottom: 10px;
 }
 
 .form label {
     display: block;
     margin-top: 15px;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .form input,
@@ -57,19 +65,17 @@ body {
     padding: 12px;
     margin-top: 6px;
     font-size: 16px;
-    font-family: 'Kufam', sans-serif;
+    font-family: 'KufamLocal', sans-serif;
 }
 
-textarea {
-    min-height: 120px;
-}
+textarea { min-height: 120px; }
 
 button {
     margin-top: 25px;
     width: 100%;
     padding: 14px;
     font-size: 18px;
-    font-family: 'Kufam', sans-serif;
+    font-family: 'KufamLocal', sans-serif;
     background: linear-gradient(135deg, #0b3c5d, #1c5d99);
     color: white;
     border: none;
@@ -77,7 +83,7 @@ button {
     cursor: pointer;
 }
 
-/* ===== صفحة التقرير (A4) ===== */
+/* ===== التقرير ===== */
 .report {
     background: white;
     margin-top: 25px;
@@ -87,8 +93,8 @@ button {
 /* ===== الترويسة ===== */
 .header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     border-bottom: 3px solid #0b3c5d;
     padding-bottom: 12px;
 }
@@ -97,30 +103,25 @@ button {
     width: 95px;
 }
 
-.header-text {
-    text-align: left;
-}
-
 .header-text h1 {
-    font-size: 20px;
     margin: 0;
+    font-size: 20px;
     font-weight: 700;
 }
 
 .header-text h2 {
-    font-size: 15px;
     margin: 4px 0 0;
+    font-size: 15px;
     font-weight: 400;
 }
 
 /* ===== عنوان التقرير ===== */
 .report-title {
     text-align: center;
-    margin: 30px 0 25px;
+    margin: 30px 0;
     font-size: 24px;
-    color: #0b3c5d;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    color: #0b3c5d;
 }
 
 /* ===== جدول البيانات ===== */
@@ -142,21 +143,20 @@ td {
     width: 30%;
 }
 
-/* ===== العناوين الفرعية ===== */
+/* ===== العناوين ===== */
 .section-title {
     margin: 28px 0 10px;
     font-size: 18px;
+    font-weight: 700;
     color: #0b3c5d;
     border-right: 6px solid #0b3c5d;
     padding-right: 12px;
-    font-weight: 700;
 }
 
 /* ===== النص ===== */
 p {
     font-size: 15px;
     line-height: 2;
-    margin: 0;
 }
 
 /* ===== الصور ===== */
@@ -175,22 +175,10 @@ p {
 
 /* ===== الطباعة ===== */
 @media print {
-    body {
-        background: white;
-    }
-
-    .form {
-        display: none;
-    }
-
-    .wrapper {
-        padding: 0;
-    }
-
-    .report {
-        margin: 0;
-        box-shadow: none;
-    }
+    body { background: white; }
+    .form { display: none; }
+    .wrapper { padding: 0; }
+    .report { margin: 0; }
 }
 </style>
 </head>
@@ -217,7 +205,7 @@ p {
 
 <label>وصف التقرير</label>
 <textarea oninput="description.textContent=this.value">
-تم تنفيذ فعالية بمناسبة اليوم الوطني تضمنت أنشطة ثقافية وتربوية متنوعة هدفت إلى تعزيز الانتماء الوطني والهوية السعودية.
+تم تنفيذ فعالية بمناسبة اليوم الوطني تضمنت أنشطة ثقافية وتربوية متنوعة.
 </textarea>
 
 <label>التاريخ</label>
@@ -226,7 +214,7 @@ p {
 <label>المكان</label>
 <input oninput="location.textContent=this.value" value="ساحة المدرسة">
 
-<label>إدراج الصور التوثيقية</label>
+<label>إدراج الصور</label>
 <input type="file" multiple accept="image/*" onchange="loadImages(this.files)">
 
 <button onclick="window.print()">تصدير PDF</button>
@@ -235,9 +223,8 @@ p {
 <!-- ===== التقرير ===== -->
 <div class="report">
 
-<!-- الترويسة -->
 <div class="header">
-    <img src="https://i.ibb.co/2037zjqy/IMG-2102.jpg" alt="شعار الجهة">
+    <img src="https://i.ibb.co/2037zjqy/IMG-2102.jpg" alt="الشعار">
     <div class="header-text">
         <h1>وزارة التعليم</h1>
         <h2>إدارة تعليم منطقة مكة المكرمة</h2>
@@ -256,7 +243,7 @@ p {
 
 <div class="section-title">وصف التقرير</div>
 <p id="description">
-تم تنفيذ فعالية بمناسبة اليوم الوطني تضمنت أنشطة ثقافية وتربوية متنوعة هدفت إلى تعزيز الانتماء الوطني والهوية السعودية.
+تم تنفيذ فعالية بمناسبة اليوم الوطني تضمنت أنشطة ثقافية وتربوية متنوعة.
 </p>
 
 <div class="section-title">الصور التوثيقية</div>
@@ -269,10 +256,8 @@ p {
 function loadImages(files) {
     const container = document.getElementById("imagesContainer");
     container.innerHTML = "";
-
     Array.from(files).forEach(file => {
         if (!file.type.startsWith("image/")) return;
-
         const reader = new FileReader();
         reader.onload = e => {
             const img = document.createElement("img");
