@@ -24,16 +24,12 @@ body {
   margin: 0;
 }
 
-/* ===== الأداة (الشاشة) ===== */
+/* ===== الأداة ===== */
 .tool {
   max-width: 900px;
   margin: auto;
   padding: 20px;
   background: white;
-}
-
-.tool h2 {
-  text-align: center;
 }
 
 .tool label {
@@ -49,11 +45,9 @@ body {
   margin-top: 5px;
 }
 
-.tool textarea {
-  min-height: 90px;
-}
+.tool textarea { min-height: 90px; }
 
-.tool button {
+button {
   margin-top: 20px;
   width: 100%;
   padding: 14px;
@@ -64,28 +58,36 @@ body {
   border-radius: 8px;
 }
 
-/* ===== قالب التقرير (مخفي على الشاشة) ===== */
-.report {
-  display: none;
+/* ===== معاينة الصور ===== */
+.preview {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+}
+.preview img {
+  width: 100%;
+  border-radius: 8px;
 }
 
-/* =================== الطباعة =================== */
+/* ===== قالب التقرير (مخفي) ===== */
+.report { display: none; }
+
+/* ===== الطباعة ===== */
 @page {
   size: A4;
   margin: 16mm;
 }
 
 @media print {
-
   body { background: white; }
-
   .tool { display: none; }
+  .report { display: block; }
 
-  .report {
-    display: block;
-    font-family: 'KufamLocal', sans-serif;
-  }
+  .page { page-break-after: always; }
+  .page:last-child { page-break-after: auto; }
 
+  /* --- نفس التصميم السابق --- */
   .header {
     background: #0a3b40;
     color: white;
@@ -187,89 +189,87 @@ body {
 
 <body>
 
-<!-- ========== الأداة ========== -->
+<!-- ========= الأداة ========= -->
 <div class="tool">
-<h2>إعداد التقرير</h2>
 
 <label>اسم المدرسة</label>
-<input oninput="school.textContent=this.value" value="ثانوية الرابعة">
-
-<label>اسم البند</label>
-<input oninput="item.textContent=this.value" value="تحسين نواتج المتعلمين">
-
-<label>عنوان التقرير</label>
-<input oninput="title.textContent=this.value" value="تقرير نشاط إثرائي">
-
-<label>تاريخ التنفيذ</label>
-<input oninput="date.textContent=this.value" value="1447-06-12">
-
-<label>المستفيدون</label>
-<input oninput="benef.textContent=this.value" value="طلاب المرحلة الثانوية">
+<input oninput="school.textContent=this.value">
 
 <label>الوصف المختصر</label>
-<textarea oninput="desc1.textContent=this.value">وصف مختصر لما تم تنفيذه</textarea>
+<textarea oninput="desc1.textContent=this.value"></textarea>
 
 <label>إجراءات التنفيذ</label>
-<textarea oninput="desc2.textContent=this.value">آلية التنفيذ</textarea>
+<textarea oninput="desc2.textContent=this.value"></textarea>
 
 <label>النتائج</label>
-<textarea oninput="desc3.textContent=this.value">نتائج النشاط</textarea>
+<textarea oninput="desc3.textContent=this.value"></textarea>
 
 <label>التوصيات</label>
-<textarea oninput="desc4.textContent=this.value">التوصيات المستقبلية</textarea>
+<textarea oninput="desc4.textContent=this.value"></textarea>
 
-<label>معد التقرير</label>
-<input oninput="writer.textContent=this.value">
-
-<label>مدير المدرسة</label>
-<input oninput="principal.textContent=this.value">
+<label>إدراج الصور</label>
+<input type="file" multiple accept="image/*" onchange="loadImages(this.files)">
+<div class="preview" id="preview"></div>
 
 <button onclick="window.print()">تصدير PDF</button>
 </div>
 
-<!-- ========== التقرير المطبوع ========== -->
+<!-- ========= التقرير ========= -->
 <div class="report">
 
-<div class="header">
-  <img src="https://i.ibb.co/2037zjqy/IMG-2102.jpg">
-  <div>
-    <strong>الإدارة العامة للتعليم</strong><br>
-    وزارة التعليم
+<!-- الصفحة 1 -->
+<div class="page">
+  <div class="header">
+    <img src="https://i.ibb.co/2037zjqy/IMG-2102.jpg">
+    <div>وزارة التعليم</div>
+  </div>
+  <div class="school-name" id="school"></div>
+
+  <div class="grid-desc">
+    <div class="desc-box"><strong>وصف مختصر</strong><p id="desc1"></p></div>
+    <div class="vertical">إجراءات<br>التنفيذ</div>
+    <div class="desc-box"><p id="desc2"></p></div>
   </div>
 </div>
 
-<div class="school-name" id="school">ثانوية الرابعة</div>
-
-<div class="grid-top">
-  <div class="cell"><span class="label">اسم البند</span><span id="item"></span></div>
-  <div class="cell"><span class="label">عنوان التقرير</span><span id="title"></span></div>
-  <div class="cell"><span class="label">تاريخ التنفيذ</span><span id="date"></span></div>
-  <div class="cell"><span class="label">المستفيدون</span><span id="benef"></span></div>
+<!-- الصفحة 2 -->
+<div class="page">
+  <div class="grid-desc">
+    <div class="desc-box"><strong>النتائج</strong><p id="desc3"></p></div>
+    <div class="vertical">التوصيات</div>
+    <div class="desc-box"><p id="desc4"></p></div>
+  </div>
 </div>
 
-<div class="grid-desc">
-  <div class="desc-box"><strong>وصف مختصر</strong><p id="desc1"></p></div>
-  <div class="vertical">إجراءات<br>التنفيذ</div>
-  <div class="desc-box"><p id="desc2"></p></div>
-</div>
-
-<div class="grid-desc">
-  <div class="desc-box"><strong>النتائج</strong><p id="desc3"></p></div>
-  <div class="vertical">التوصيات</div>
-  <div class="desc-box"><p id="desc4"></p></div>
-</div>
-
-<div class="images">
-  <img src="https://via.placeholder.com/600x400">
-  <img src="https://via.placeholder.com/600x400">
-</div>
-
-<div class="footer">
-  <div>معد التقرير: <span id="writer"></span></div>
-  <div style="text-align:left">مدير المدرسة: <span id="principal"></span></div>
+<!-- الصفحة 3 -->
+<div class="page">
+  <h3 style="text-align:center">شواهد الصور</h3>
+  <div class="images" id="imagesContainer"></div>
 </div>
 
 </div>
+
+<script>
+function loadImages(files) {
+  const preview = document.getElementById("preview");
+  const container = document.getElementById("imagesContainer");
+  preview.innerHTML = "";
+  container.innerHTML = "";
+
+  Array.from(files).forEach(file => {
+    if (!file.type.startsWith("image/")) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img1 = document.createElement("img");
+      const img2 = document.createElement("img");
+      img1.src = img2.src = e.target.result;
+      preview.appendChild(img1);
+      container.appendChild(img2);
+    };
+    reader.readAsDataURL(file);
+  });
+}
+</script>
 
 </body>
 </html>
