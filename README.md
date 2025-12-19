@@ -6,7 +6,7 @@
 <title>أداة إعداد التقارير</title>
 
 <style>
-/* ===== الخط الكوفي ===== */
+/* ===== الخط ===== */
 @font-face {
   font-family: 'KufamLocal';
   src: url('static/Kufam-Regular.ttf') format('truetype');
@@ -58,28 +58,31 @@ button {
   border-radius: 8px;
 }
 
-/* ===== معاينة الصور ===== */
+/* ===== معاينة الصور في الأداة ===== */
 .preview {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   gap: 10px;
   margin-top: 10px;
 }
+
 .preview img {
   width: 100%;
   border-radius: 8px;
+  border: 1px solid #ccc;
 }
 
-/* ===== قالب التقرير (مخفي) ===== */
+/* ===== قالب التقرير ===== */
 .report { display: none; }
 
-/* ===== الطباعة ===== */
+/* =================== الطباعة =================== */
 @page {
   size: A4;
-  margin: 16mm;
+  margin: 14mm;
 }
 
 @media print {
+
   body { background: white; }
   .tool { display: none; }
   .report { display: block; }
@@ -87,48 +90,45 @@ button {
   .page { page-break-after: always; }
   .page:last-child { page-break-after: auto; }
 
-  /* --- نفس التصميم السابق --- */
-  .header {
+  /* ===== الهيدر ===== */
+  .header-full {
     background: #0a3b40;
     color: white;
-    padding: 18px;
     border-radius: 18px;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 15px;
-    align-items: center;
+    padding: 20px;
+    text-align: center;
   }
 
-  .header img {
-    width: 85px;
-    background: white;
-    padding: 6px;
-    border-radius: 10px;
+  .header-full img {
+    width: 110px;
+    margin-bottom: 10px;
   }
 
   .school-name {
     background: #0a3b40;
     color: white;
     width: fit-content;
-    margin: 12px auto 18px;
-    padding: 8px 25px;
+    margin: 10px auto 18px;
+    padding: 8px 28px;
     border-radius: 14px;
   }
 
-  .grid-top {
+  /* ===== شبكة المعلومات ===== */
+  .info-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
+    margin-bottom: 18px;
   }
 
-  .cell {
+  .info-box {
     border: 2px solid #cfd8dc;
     border-radius: 14px;
     padding: 10px;
     font-size: 14px;
   }
 
-  .cell .label {
+  .info-box span {
     display: block;
     background: #e0e0e0;
     border-radius: 10px;
@@ -138,6 +138,7 @@ button {
     margin-bottom: 6px;
   }
 
+  /* ===== محتوى ===== */
   .grid-desc {
     display: grid;
     grid-template-columns: 1fr 80px 1fr;
@@ -161,9 +162,10 @@ button {
     font-weight: 700;
   }
 
+  /* ===== الصور في الصفحة الثالثة ===== */
   .images {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
     margin-top: 18px;
   }
@@ -172,8 +174,10 @@ button {
     width: 100%;
     border-radius: 12px;
     border: 1px solid #999;
+    page-break-inside: avoid;
   }
 
+  /* ===== التذييل ===== */
   .footer {
     margin-top: 25px;
     background: linear-gradient(to left, #0a3b40, #138f8f);
@@ -195,6 +199,18 @@ button {
 <label>اسم المدرسة</label>
 <input oninput="school.textContent=this.value">
 
+<label>عنوان التقرير</label>
+<input oninput="title.textContent=this.value">
+
+<label>تاريخ التنفيذ</label>
+<input oninput="date.textContent=this.value">
+
+<label>المستهدفون</label>
+<input oninput="target.textContent=this.value">
+
+<label>عدد المستفيدين</label>
+<input oninput="count.textContent=this.value">
+
 <label>الوصف المختصر</label>
 <textarea oninput="desc1.textContent=this.value"></textarea>
 
@@ -207,7 +223,7 @@ button {
 <label>التوصيات</label>
 <textarea oninput="desc4.textContent=this.value"></textarea>
 
-<label>إدراج الصور</label>
+<label>إدراج الصور (شواهد)</label>
 <input type="file" multiple accept="image/*" onchange="loadImages(this.files)">
 <div class="preview" id="preview"></div>
 
@@ -217,13 +233,21 @@ button {
 <!-- ========= التقرير ========= -->
 <div class="report">
 
-<!-- الصفحة 1 -->
+<!-- الصفحة الأولى -->
 <div class="page">
-  <div class="header">
+  <div class="header-full">
     <img src="https://i.ibb.co/2037zjqy/IMG-2102.jpg">
     <div>وزارة التعليم</div>
   </div>
+
   <div class="school-name" id="school"></div>
+
+  <div class="info-grid">
+    <div class="info-box"><span>عنوان التقرير</span><div id="title"></div></div>
+    <div class="info-box"><span>تاريخ التنفيذ</span><div id="date"></div></div>
+    <div class="info-box"><span>المستهدفون</span><div id="target"></div></div>
+    <div class="info-box"><span>عدد المستفيدين</span><div id="count"></div></div>
+  </div>
 
   <div class="grid-desc">
     <div class="desc-box"><strong>وصف مختصر</strong><p id="desc1"></p></div>
@@ -232,7 +256,7 @@ button {
   </div>
 </div>
 
-<!-- الصفحة 2 -->
+<!-- الصفحة الثانية -->
 <div class="page">
   <div class="grid-desc">
     <div class="desc-box"><strong>النتائج</strong><p id="desc3"></p></div>
@@ -241,7 +265,7 @@ button {
   </div>
 </div>
 
-<!-- الصفحة 3 -->
+<!-- الصفحة الثالثة -->
 <div class="page">
   <h3 style="text-align:center">شواهد الصور</h3>
   <div class="images" id="imagesContainer"></div>
@@ -253,18 +277,23 @@ button {
 function loadImages(files) {
   const preview = document.getElementById("preview");
   const container = document.getElementById("imagesContainer");
+
   preview.innerHTML = "";
   container.innerHTML = "";
 
   Array.from(files).forEach(file => {
     if (!file.type.startsWith("image/")) return;
+
     const reader = new FileReader();
     reader.onload = e => {
-      const img1 = document.createElement("img");
-      const img2 = document.createElement("img");
-      img1.src = img2.src = e.target.result;
-      preview.appendChild(img1);
-      container.appendChild(img2);
+      const imgPreview = document.createElement("img");
+      const imgPrint = document.createElement("img");
+
+      imgPreview.src = e.target.result;
+      imgPrint.src = e.target.result;
+
+      preview.appendChild(imgPreview);
+      container.appendChild(imgPrint);
     };
     reader.readAsDataURL(file);
   });
