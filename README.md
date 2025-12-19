@@ -5,41 +5,44 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>تقرير تربوي رسمي</title>
 
-<!-- خط عربي احترافي -->
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- خط كوفي أنيق -->
+<link href="https://fonts.googleapis.com/css2?family=Kufam:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* ========== إعدادات الطباعة A4 ========== */
+/* ===== إعدادات الطباعة A4 ===== */
 @page {
     size: A4;
     margin: 20mm;
 }
 
-/* ========== عام ========== */
+/* ===== عام ===== */
 body {
-    font-family: 'Cairo', sans-serif;
+    font-family: 'Kufam', sans-serif;
     margin: 0;
-    background: #eaeaea;
+    background: #eceff1;
     direction: rtl;
-    color: #222;
+    color: #1f1f1f;
 }
 
-/* ========== واجهة الإدخال ========== */
+/* ===== حاوية عامة ===== */
 .wrapper {
     max-width: 900px;
     margin: auto;
     padding: 15px;
 }
 
+/* ===== نموذج الإدخال ===== */
 .form {
     background: #ffffff;
-    padding: 20px;
-    border-radius: 12px;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
 }
 
 .form h2 {
     text-align: center;
-    color: #0d47a1;
+    color: #0b3c5d;
+    margin-bottom: 10px;
 }
 
 .form label {
@@ -54,6 +57,7 @@ body {
     padding: 12px;
     margin-top: 6px;
     font-size: 16px;
+    font-family: 'Kufam', sans-serif;
 }
 
 textarea {
@@ -65,98 +69,107 @@ button {
     width: 100%;
     padding: 14px;
     font-size: 18px;
-    background: #0d47a1;
+    font-family: 'Kufam', sans-serif;
+    background: linear-gradient(135deg, #0b3c5d, #1c5d99);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
 }
 
-/* ========== صفحة التقرير (A4) ========== */
+/* ===== صفحة التقرير (A4) ===== */
 .report {
     background: white;
-    margin-top: 20px;
+    margin-top: 25px;
     padding: 25mm;
-    border-radius: 0;
 }
 
 /* ===== الترويسة ===== */
 .header {
     display: flex;
     align-items: center;
-    gap: 15px;
-    border-bottom: 3px solid #0d47a1;
-    padding-bottom: 10px;
+    justify-content: space-between;
+    border-bottom: 3px solid #0b3c5d;
+    padding-bottom: 12px;
 }
 
 .header img {
-    width: 90px;
+    width: 95px;
+}
+
+.header-text {
+    text-align: left;
 }
 
 .header-text h1 {
     font-size: 20px;
     margin: 0;
+    font-weight: 700;
 }
 
 .header-text h2 {
-    font-size: 16px;
-    margin: 2px 0 0;
-    font-weight: normal;
+    font-size: 15px;
+    margin: 4px 0 0;
+    font-weight: 400;
 }
 
 /* ===== عنوان التقرير ===== */
 .report-title {
     text-align: center;
-    margin: 25px 0;
-    font-size: 22px;
-    color: #0d47a1;
+    margin: 30px 0 25px;
+    font-size: 24px;
+    color: #0b3c5d;
     font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 /* ===== جدول البيانات ===== */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 td {
     border: 1px solid #444;
-    padding: 10px;
+    padding: 11px;
     font-size: 14px;
 }
 
 .label {
-    background: #f3f6fb;
+    background: #f0f4f8;
     font-weight: 700;
     width: 30%;
 }
 
-/* ===== الوصف ===== */
+/* ===== العناوين الفرعية ===== */
 .section-title {
-    margin: 25px 0 10px;
+    margin: 28px 0 10px;
     font-size: 18px;
-    color: #0d47a1;
-    border-right: 5px solid #0d47a1;
-    padding-right: 10px;
+    color: #0b3c5d;
+    border-right: 6px solid #0b3c5d;
+    padding-right: 12px;
+    font-weight: 700;
 }
 
+/* ===== النص ===== */
 p {
     font-size: 15px;
-    line-height: 1.9;
+    line-height: 2;
+    margin: 0;
 }
 
 /* ===== الصور ===== */
 .images {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 14px;
 }
 
 .images img {
     width: 48%;
-    border: 1px solid #aaa;
-    border-radius: 6px;
+    border-radius: 8px;
+    border: 1px solid #999;
     page-break-inside: avoid;
 }
 
@@ -176,6 +189,7 @@ p {
 
     .report {
         margin: 0;
+        box-shadow: none;
     }
 }
 </style>
@@ -203,7 +217,7 @@ p {
 
 <label>وصف التقرير</label>
 <textarea oninput="description.textContent=this.value">
-تم تنفيذ فعالية بمناسبة اليوم الوطني تضمنت أنشطة ثقافية وتربوية متنوعة هدفت إلى تعزيز الانتماء الوطني.
+تم تنفيذ فعالية بمناسبة اليوم الوطني تضمنت أنشطة ثقافية وتربوية متنوعة هدفت إلى تعزيز الانتماء الوطني والهوية السعودية.
 </textarea>
 
 <label>التاريخ</label>
@@ -223,7 +237,7 @@ p {
 
 <!-- الترويسة -->
 <div class="header">
-    <img src="https://i.ibb.co/YTXHP5GF/SVG-PNG.jpg" alt="شعار وزارة التعليم">
+    <img src="https://i.ibb.co/2037zjqy/IMG-2102.jpg" alt="شعار الجهة">
     <div class="header-text">
         <h1>وزارة التعليم</h1>
         <h2>إدارة تعليم منطقة مكة المكرمة</h2>
@@ -242,7 +256,7 @@ p {
 
 <div class="section-title">وصف التقرير</div>
 <p id="description">
-تم تنفيذ فعالية بمناسبة اليوم الوطني تضمنت أنشطة ثقافية وتربوية متنوعة هدفت إلى تعزيز الانتماء الوطني.
+تم تنفيذ فعالية بمناسبة اليوم الوطني تضمنت أنشطة ثقافية وتربوية متنوعة هدفت إلى تعزيز الانتماء الوطني والهوية السعودية.
 </p>
 
 <div class="section-title">الصور التوثيقية</div>
